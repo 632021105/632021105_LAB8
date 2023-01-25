@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab08/sevices/auth_sevice.dart';
 class register extends StatefulWidget {
   const register({super.key});
 
@@ -6,9 +7,9 @@ class register extends StatefulWidget {
   State<register> createState() => _registerState();
 }
 final _formKey = GlobalKey<FormState>();
-TextEditingController _controller1 = TextEditingController();
-TextEditingController _controller2 = TextEditingController();
-TextEditingController _controller3 = TextEditingController();
+
+TextEditingController emailuser = TextEditingController();
+TextEditingController passworduser = TextEditingController();
 
 
 
@@ -18,7 +19,7 @@ class _registerState extends State<register> {
   Widget build(BuildContext context) {
 
 
-    
+  
     
     
     
@@ -33,29 +34,10 @@ class _registerState extends State<register> {
         key: _formKey ,
         child:  Column(children: 
        [ 
-      TextFormField(
-
-        controller: _controller1,
-      validator: (value) {
-    if (value!.isEmpty) {
-    return 'Enter text';
-    }
-    return null;
-    },
-       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.email),
-        labelText: "username",
-        hintText: "please enter username",
-        hintStyle: TextStyle(color: Colors.grey)
-
-
-      ),
-
-     
-      ),
+  
        TextFormField(
            obscureText: true,
-        controller: _controller2,
+        controller: passworduser,
       validator: (value) {
     if (value!.isEmpty) {
     return 'Enter text';
@@ -74,7 +56,7 @@ class _registerState extends State<register> {
       ),
        TextFormField(
 
-        controller: _controller3,
+        controller: emailuser,
       validator: (value) {
     if (value!.isEmpty) {
     return 'Enter text';
@@ -99,38 +81,19 @@ class _registerState extends State<register> {
       
       ElevatedButton(
         onPressed: () {
-          if(_formKey.currentState!.validate()) {
-            print(_controller1.text);
-          }
-
-           if(_formKey.currentState!.validate()) {
-            print(_controller2.text);
-          }
-          
+          AuthService.registeruser    (emailuser.text ,passworduser.text).then((value){
+            print("pass");
+            Navigator.pop(context);
+          });
         },
         child: Text('login'),
         )
-  
-  
-    
 
        ],
 
       ),)
       
 
-
-
-
-
-
-
-
-
-
-
-      
-    
     );
 
     
